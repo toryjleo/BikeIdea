@@ -46,6 +46,7 @@ GameObject:
   - component: {fileID: 5712463959268904266}
   - component: {fileID: 7422861475599651841}
   - component: {fileID: 990085328645293825}
+  - component: {fileID: 5698104656659081720}
   m_Layer: 0
   m_Name: PlayerBike1
   m_TagString: Player
@@ -240,6 +241,26 @@ MonoBehaviour:
   MoveSpeed: 100
   Traction: 3
   SteerAngle: 10
+--- !u!114 &5698104656659081720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3369499019353642388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad834e38013f10047ad44fe49080810b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bikeMeshParent: {fileID: 0}
+  bikeMeshChild: {fileID: 0}
+  appliedForce: {x: 0, y: 0, z: 0}
+  rb: {fileID: 0}
+  MoveSpeed: 100
+  Traction: 3
+  SteerAngle: 10
+  DashForce: 50
 --- !u!1 &8096175468203405583
 GameObject:
   m_ObjectHideFlags: 0

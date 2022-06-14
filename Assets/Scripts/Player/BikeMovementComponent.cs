@@ -17,7 +17,7 @@ public class BikeMovementComponent : MonoBehaviour
     public Rigidbody rb;
 
     // Dictates movement speed
-    private Health health;
+    protected Health health;
 
 
     public float MoveSpeed = 100; //The speed of the bike 
@@ -25,20 +25,20 @@ public class BikeMovementComponent : MonoBehaviour
 
     public float SteerAngle = 10; //the angle at which the bike turns
 
-    private float dragCoefficient = .98f; // A linear scale of how much drag will be applied to the bike
+    protected float dragCoefficient = .98f; // A linear scale of how much drag will be applied to the bike
 
-    private float maxLean = 40.0f;
+    protected float maxLean = 40.0f;
 
-    private const float ACCELERATION_SCALE = 5.0f;
+    protected const float ACCELERATION_SCALE = 5.0f;
 
-    private const float STARTING_HEALTH = 200.0f;
+    protected const float STARTING_HEALTH = 200.0f;
 
-    private const float MAX_ACCELERATION = 1000.0f;
+    protected const float MAX_ACCELERATION = 1000.0f;
 
     /// <summary>
     /// The current acceleration of the bike. Is dependant on health
     /// </summary>
-    private float Acceleration 
+    protected float Acceleration 
     {
         get 
         {
@@ -87,7 +87,7 @@ public class BikeMovementComponent : MonoBehaviour
     /// <summary> Main method for controlling bike 
     /// Applies forces to Rigid body in relation to player input 
     /// </summary>
-    public void ApplyForces()
+    public virtual void ApplyForces()
     {
 
 
