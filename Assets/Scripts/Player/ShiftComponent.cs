@@ -36,9 +36,18 @@ public class ShiftComponent : BikeMovementComponent
         //TODO Fix this so that it works. The shift ability needs to be good for strafing and also needs to have some Kind of COOLDOWN 
         if (Input.GetKeyDown(KeyCode.LeftShift)){
 
-            print("Vertical: " + Input.GetAxis("Vertical"));
-            print("Horizontal: " + Input.GetAxis("Horizontal"));
-            Vector3 ShiftDirection = new Vector3(1, 0, 1);
+            
+
+            float Vert = Input.GetAxis("Vertical");
+            float Horz = Input.GetAxis("Horizontal");
+
+            Vert = Mathf.RoundToInt(Vert);
+            Horz = Mathf.RoundToInt(Horz);
+
+            print("Vertical: " + Vert);
+            print("Horizontal: " + Horz);
+
+            Vector3 ShiftDirection = ForwardVector();
 
             //Vector3 ShiftDirection = new Vector3(Input.GetAxis("Vertical"), 0, Input.GetAxis("Horizontal"));
             //ShiftDirection = ShiftDirection.Normalize;
