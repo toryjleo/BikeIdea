@@ -24,7 +24,7 @@ public class EnemyManager : MonoBehaviour
         dl = DLevel.Instance;
     }
 
-    void Update()
+    void Update() //TODO add new spawning behavior 
     {
         UpdateEnemyStates();
 
@@ -56,7 +56,7 @@ public class EnemyManager : MonoBehaviour
             if (a.isAlive())
             {
                 //Do Alive things
-                a.seperate(currentEnemies);
+                a.Seperate(currentEnemies);
             }
             else
             {
