@@ -16,7 +16,7 @@ public class BulletPool : MonoBehaviour
     {
         this.bulletPrefab = bulletPrefab;
 
-        bulletStartAmnt = 100;
+        bulletStartAmnt = 500;
         bulletQueue = new Queue<Bullet>();
 
         // Spawn in defualt bullets
