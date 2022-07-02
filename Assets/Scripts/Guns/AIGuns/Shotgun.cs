@@ -11,7 +11,7 @@ public class Shotgun : Gun
         lastFired = 0;
         fireRate = .7f; // Every 2 seconds
         bulletPool = gameObject.AddComponent<BulletPool>();
-        bulletPool.Init(bulletPrefab);
+        bulletPool.Init(bulletPrefab,40);
     }
 
     public override void Shoot(Vector3 initialVelocity)

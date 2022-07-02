@@ -12,7 +12,7 @@ public class BasicRifle : Gun
         lastFired = 0;
         fireRate = .25f; // Every 2 seconds
         bulletPool = gameObject.AddComponent<BulletPool>();
-        bulletPool.Init(bulletPrefab);
+        bulletPool.Init(bulletPrefab,40);
     }
 
     /// <summary>Fires a sequence of 3 bullets.</summary>

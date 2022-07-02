@@ -21,7 +21,7 @@ public class VulcanV64AutoCannons : Gun
         lastFired = 0;
         fireRate = 45;
         bulletPool = gameObject.AddComponent<BulletPool>();
-        bulletPool.Init(bulletPrefab);
+        bulletPool.Init(bulletPrefab,100);
     }
     /// <summary>Fires a bullet out of either muzzle, alternating each turn.</summary>
     /// <param name="initialVelocity">The velocity of the gun when the bullet is shot.</param>

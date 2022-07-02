@@ -115,17 +115,7 @@ public abstract class Ai : SelfWorldBoundsDespawn
                 myGun.StopAllCoroutines();
             }
 
-        }
-        
-        
-
-
-
-        
-        
-
-       
-
+        } 
     }
     /// <summary>
     /// This method is called when the entitiy wants to attack. Checks if it has a gun 
@@ -271,10 +261,11 @@ public abstract class Ai : SelfWorldBoundsDespawn
     /// <summary>
     /// This method is called to reset the entity's health and alive status. Use every time they spawn. 
     /// </summary>
-    public void NewLife()
+    public void OnSpawn()
     {
         alive = true;
         hp.Init(StartingHP);
+
     }// this restets the enemies HP and sets them to alive;
 
     /// <summary>

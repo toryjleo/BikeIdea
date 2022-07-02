@@ -52,7 +52,7 @@ public class EnemySpawner : MonoBehaviour
         //Init Enemy 
         enemyAI = enemy.GetComponent<Ai>();
         enemyAI.Loadout(player);
-        enemyAI.NewLife();
+        enemyAI.OnSpawn();
         return enemy;
     }
 
@@ -85,7 +85,7 @@ public class EnemySpawner : MonoBehaviour
         //Init Enemy 
         enemyAI = enemy.GetComponent<Ai>();
         enemyAI.Loadout(player);
-        enemyAI.NewLife();
+        enemyAI.OnSpawn();
         return enemyAI;
     }
 
@@ -105,7 +105,7 @@ public class EnemySpawner : MonoBehaviour
 
             enemyAI = enemy.GetComponent<Ai>();
             enemyAI.Loadout(player);
-            enemyAI.NewLife();
+            enemyAI.OnSpawn();
             currentEnemies.Add(enemyAI);
         }
 

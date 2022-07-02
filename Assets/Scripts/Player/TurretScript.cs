@@ -18,7 +18,7 @@ public class TurretScript : Gun
         lastFired = 0;
         fireRate = 10;
         bulletPool = gameObject.AddComponent<BulletPool>();
-        bulletPool.Init(bulletPrefab);
+        bulletPool.Init(bulletPrefab,200);
     }
 
     public override void Shoot(Vector3 initialVelocity)

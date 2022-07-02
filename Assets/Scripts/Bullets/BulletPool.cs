@@ -12,11 +12,11 @@ public class BulletPool : MonoBehaviour
 
     /// <summary>Initialize this class's variables. A replacement for a constructor.</summary>
     /// <param name="bulletPrefab">The template object for this pool.</param>
-    public void Init(Bullet bulletPrefab) 
+    public void Init(Bullet bulletPrefab, int StartingBullets) 
     {
         this.bulletPrefab = bulletPrefab;
 
-        bulletStartAmnt = 500;
+        bulletStartAmnt = 100;
         bulletQueue = new Queue<Bullet>();
 
         // Spawn in defualt bullets

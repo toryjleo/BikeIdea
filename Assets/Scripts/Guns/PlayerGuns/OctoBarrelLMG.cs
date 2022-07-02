@@ -18,7 +18,7 @@ public class OctoBarrelLMG : Gun
         lastFired = 0;
         fireRate = 60;
         bulletPool = gameObject.AddComponent<BulletPool>();
-        bulletPool.Init(bulletPrefab);
+        bulletPool.Init(bulletPrefab,400);
         ammunition = 100;
     }
 

@@ -11,7 +11,8 @@ public class AkimboRangers : Gun
         lastFired = 0;
         fireRate = 2f; // Every 1 second
         bulletPool = gameObject.AddComponent<BulletPool>();
-        bulletPool.Init(bulletPrefab);
+        
+        bulletPool.Init(bulletPrefab,40);
     }
 
     public override void Shoot(Vector3 initialVelocity)

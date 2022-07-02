@@ -18,7 +18,7 @@ public class DoubleBarrelLMG : Gun
         lastFired = 0;
         fireRate = 15;
         bulletPool = gameObject.AddComponent<BulletPool>();
-        bulletPool.Init(bulletPrefab);
+        bulletPool.Init(bulletPrefab,200);
     }
 
     /// <summary>Fires a bullet out of either muzzle, alternating each turn.</summary>
