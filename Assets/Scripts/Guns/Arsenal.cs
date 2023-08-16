@@ -38,6 +38,10 @@ public class Arsenal : MonoBehaviour, IResettable
         {
             EquipGun(PlayerWeaponType.Shotty);
         }
+        else if (Input.GetKeyDown(KeyCode.V))
+        {
+            EquipGun(PlayerWeaponType.VulkanV64AutoCannons);
+        }
 #endif
     }
 

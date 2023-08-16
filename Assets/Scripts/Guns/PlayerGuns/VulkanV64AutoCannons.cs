@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>Raycast alternative primary weapons</summary>
-public class VulcanV64AutoCannons : Gun
+public class VulkanV64AutoCannons : Gun
 {
     // Very specific to this gun
     public GameObject muzzle1;
@@ -12,8 +12,11 @@ public class VulcanV64AutoCannons : Gun
     public AudioSource muzzle2Audio;
     private bool muzzle1Turn = true;
 
-    const float ADDED_INACCURACY_PER_SHOT = 5f;
-    const float MAX_INACCURACY = 0f;
+    const float ADDED_INACCURACY_PER_SHOT = .01f;
+    const float REDUCED_INACCURACY_PER_SECOND = .04f;
+    const float MAX_INACCURACY = .5f;
+    const float PRIMARY_FIRE_RATE = 45f;
+    const float SECONDARY_FIRE_RATE = 10f;
     float inaccuracy = 0f;
 
     public override PlayerWeaponType GetPlayerWeaponType()
@@ -24,13 +27,14 @@ public class VulcanV64AutoCannons : Gun
     public override void Init()
     {
         lastFired = 0;
-        fireRate = 45;
+        fireRate = PRIMARY_FIRE_RATE;
         base.Init();
     }
     /// <summary>Fires a bullet out of either muzzle, alternating each turn.</summary>
     /// <param name="initialVelocity">The velocity of the gun when the bullet is shot.</param>
     public override void PrimaryFire(Vector3 initialVelocity)
     {
+        fireRate = PRIMARY_FIRE_RATE;
         if (CanShootAgain())
         {
             inaccuracy += ADDED_INACCURACY_PER_SHOT;
@@ -38,11 +42,16 @@ public class VulcanV64AutoCannons : Gun
             {
                 inaccuracy = MAX_INACCURACY;
             }
+            inaccuracy -= (Time.time - lastFired) * REDUCED_INACCURACY_PER_SECOND;
+            if (inaccuracy < 0f)
+            {
+                inaccuracy = 0f;
+            }
             lastFired = Time.time;
             Bullet bullet = bulletPool.SpawnFromPool();
 
             Vector3 shotDir;
-
+            Debug.Log("Inaccuracy: " + inaccuracy);
             // Gun specific
             if (muzzle1Turn)
             {
@@ -70,7 +79,34 @@ public class VulcanV64AutoCannons : Gun
     //TODO: Implement secondary fire
     public override void SecondaryFire(Vector3 initialVelocity)
     {
-        throw new System.NotImplementedException();
+        fireRate = SECONDARY_FIRE_RATE;
+        if (CanShootAgain())
+        {
+            inaccuracy -= (Time.time - lastFired) * REDUCED_INACCURACY_PER_SECOND;
+            if (inaccuracy < 0f)
+            {
+                inaccuracy = 0f;
+            }
+            lastFired = Time.time;
+            Bullet bullet = bulletPool.SpawnFromPool();
+
+            Vector3 shotDir;
+            // Gun specific
+            if (muzzle1Turn)
+            {
+                shotDir = muzzle1.transform.forward;
+                bullet.Shoot(muzzle1.transform.position, shotDir, initialVelocity);
+                muzzle1Audio.Play();
+            }
+            else
+            {
+                shotDir = muzzle2.transform.forward;
+                bullet.Shoot(muzzle2.transform.position, shotDir, initialVelocity);
+                muzzle2Audio.Play();
+            }
+            muzzle1Turn = !muzzle1Turn;
+            ApplyRecoil(shotDir, bullet);
+        }
     }
 
 
