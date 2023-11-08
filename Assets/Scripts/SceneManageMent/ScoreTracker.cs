@@ -10,13 +10,12 @@ using System.Linq;
 /// Expects there to be an object with BikeScript in the scene.
 public class ScoreTracker : MonoBehaviour, IResettable
 {
-    private const float MAX_TIME = 90;
-    private float currentTime;
     private int currentScore;
     private float _currentEnergy;
     public TextMeshProUGUI timeLeftText;
     public TextMeshProUGUI currentScoreText;
     public TextMeshProUGUI currentHPText;
+
 
     public List<PlayerWeaponType> weaponPool;
 
@@ -44,49 +43,14 @@ public class ScoreTracker : MonoBehaviour, IResettable
     {
         UpdateUIEnergy();
         UpdateText();
-        if (currentTime <= 0)
-        {
-            // Win condition
-            EndGame(true);
-        }
-        else if (_currentEnergy <=0)
-        {
-            // Lose Condition
-            EndGame(false);
-        }
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Application.Quit();
-        }
-        if(Input.GetKeyDown(KeyCode.R))
-        {
-            Debug.Log("Resetting!");
-            List<IResettable> resetObjects = FindObjectsOfType<MonoBehaviour>(true).OfType<IResettable>().ToList();
-            foreach (IResettable r in resetObjects)
-            {
-                r.ResetGameObject();
-            }
-        }
     }
 
     public void Init()
     {
-        currentTime = MAX_TIME;
         currentScore = 0;
     }
 
-    private void FindBike()
-    {
-        BikeScript[] bikeScripts = Object.FindObjectsOfType<BikeScript>();
-        if (bikeScripts.Length <= 0)
-        {
-            Debug.LogError("WorldGenerator did not find any BikeScripts in scene");
-        }
-        else
-        {
-            bike = bikeScripts[0];
-        }
-    }
+
 
     void OnDisable()
     {
@@ -104,9 +68,6 @@ public class ScoreTracker : MonoBehaviour, IResettable
     /// <summary>Updates the UI displayed on screen.</summary>
     private void UpdateText()
     {
-        currentTime -= Time.deltaTime;
-
-        timeLeftText.text = currentTime.ToString("0.00"); // Formats to 2 decimal points
         currentScoreText.text = currentScore.ToString();
         currentHPText.text = "Energy: " + _currentEnergy.ToString("0.00");
     }
@@ -133,34 +94,27 @@ public class ScoreTracker : MonoBehaviour, IResettable
     /// <summary>Updates this class's Energy to the bike's energy.</summary>
     private void UpdateUIEnergy()
     {
-        Energy = bike.Energy;
-    }
-
-    /// <summary>Loads the gameover screen.</summary>
-    /// <param name="survivedEvent">True if the player beat the level.</param>
-    private void EndGame(bool survivedEvent)
-    {
-        PlayerDataObject.survivedEvent = survivedEvent;
-
-        Object.FindObjectOfType<DLevel>().dangerTimer.Dispose(); //Dispose of timer for spawning more enemies
-        SceneManager.LoadScene("TestScene");
-        //StartCoroutine(LoadYourAsyncScene());
-    }
-
-    /// <summary>Loads the gameover screen asycronously.</summary>
-    IEnumerator LoadYourAsyncScene()
-    {
-        // The Application loads the Scene in the background as the current Scene runs.
-        // This is particularly good for creating loading screens.
-        // You could also load the Scene by using sceneBuildIndex. In this case Scene2 has
-        // a sceneBuildIndex of 1 as shown in Build Settings.
-
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("EndGameScene");
-
-        // Wait until the asynchronous scene fully loads
-        while (!asyncLoad.isDone)
+        if (bike == null)
         {
-            yield return null;
+            Debug.LogError("No bike found in the scene.");
+        }
+        else
+        {
+            Energy = bike.Energy;
+        }
+
+    }
+
+    private void FindBike()
+    {
+        BikeScript[] bikeScripts = Object.FindObjectsOfType<BikeScript>();
+        if (bikeScripts.Length <= 0)
+        {
+            Debug.LogError("WorldGenerator did not find any BikeScripts in scene");
+        }
+        else
+        {
+            bike = bikeScripts[0];
         }
     }
 

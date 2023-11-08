@@ -1,10 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Timers;
 using UnityEngine;
 
 
-public class DLevel : MonoBehaviour
+public class DLevel : MonoBehaviour, IResettable
 {
     public Timer dangerTimer;
     public int dangerLevel;
@@ -32,7 +33,10 @@ public class DLevel : MonoBehaviour
     /// <param name="e"></param>
     private void XTimer_Elapsed(object sender, ElapsedEventArgs e)
     {
-        dangerLevel++;
+        if (dangerLevel > 1)
+        {
+            dangerLevel--;
+        }
     }
 
     /// <summary>
@@ -41,5 +45,15 @@ public class DLevel : MonoBehaviour
     public int GetDangerLevel()
     {
         return dangerLevel;
+    }
+
+    internal void IncreaseDangerLevel(int dlScore)
+    {
+        dangerLevel += dlScore;
+    }
+
+    public void ResetGameObject()
+    {
+        dangerLevel = 0;
     }
 }
